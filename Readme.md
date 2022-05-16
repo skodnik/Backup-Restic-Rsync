@@ -21,7 +21,10 @@ mkdir <repository_dir>/logs
 ```bash
 vim <repository_dir>/pass.txt
 ```
-4. При необходимости можно определить перечень игнорируемых файлов при создании снапшота. Перечень файлов [определяется](https://restic.readthedocs.io/en/stable/040_backup.html?highlight=--exclude-file#excluding-files) в файле `.resticignore`.
+4. При необходимости можно определить перечень игнорируемых файлов при создании снапшота. Перечень файлов [определяется](https://restic.readthedocs.io/en/stable/040_backup.html?highlight=--exclude-file#excluding-files) в файле `resticignore.txt` в директории репозитория. Его обязательно необходимо создать, можно оставить пустым.
+```bash
+vim <repository_dir>/resticignore.txt
+```
 
 ## Создание снапшота
 Лучше всего для разных исходных директорий создавать различные репозитории.

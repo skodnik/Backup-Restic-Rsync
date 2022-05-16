@@ -80,7 +80,7 @@ function createSnashot () {
     restic \
     --repo "$1" \
     --password-file "$1"/pass.txt \
-    --exclude-file=.resticignore \
+    --exclude-file=$1/resticignore.txt \
     backup \
     "$2" | tee -a $LOG_FILE
 }
