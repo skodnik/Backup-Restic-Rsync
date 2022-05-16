@@ -67,6 +67,12 @@ function cleanUp () {
     --keep-monthly 12 \
     --keep-yearly 4 \
     --prune | tee -a $LOG_FILE
+
+    restic \
+    --repo "$1" \
+    --password-file "$1"/pass.txt \
+    cache \
+    --cleanup | tee -a $LOG_FILE
 }
 
 function createSnashot () {
@@ -74,6 +80,7 @@ function createSnashot () {
     restic \
     --repo "$1" \
     --password-file "$1"/pass.txt \
+    --exclude-file=.resticignore \
     backup \
     "$2" | tee -a $LOG_FILE
 }
