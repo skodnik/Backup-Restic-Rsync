@@ -58,8 +58,8 @@ bash ./go-rsync.sh <repository_dir> <backup_dir>
 ## Примеры
 Вот так можно поставить в cron. Целевых директорий для синхронизации может быть несколько.
 ```bash
-WORK_DIR="/Users/macuser/Documents/PostNauka" &&\
-REPO_DIR="/Users/macuser/Backups/Work/Restic/Documents/PostNauka" &&\
+WORK_DIR="/Users/macuser/Documents/WorkFiles" &&\
+REPO_DIR="/Users/macuser/Backups/Work/Restic/Documents/WorkFiles" &&\
 BACK_DIR="/Volumes/external_SSD/Backups/Restic/Documents" &&\
 bash ./go-restic.sh $REPO_DIR $WORK_DIR &&\
 bash ./go-rsync.sh $REPO_DIR $BACK_DIR
