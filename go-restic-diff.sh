@@ -37,17 +37,17 @@ function getSnapshotsHash () {
     --password-file "$1"/.pass \
     snapshots \
     --json latest |\
-    jq -r ".[0].id, .[0].parent"
+    jq -r ".[0].parent, .[0].id"
 }
 
+SNAPSHOTS=$(getSnapshotsHash "$1")
+
 function diffSnapshots () {
-    showMessage "" "Diff previous and latest snapshots"
+    showMessage "" "Diff between previous and last snapshots"
     restic \
     --repo "$1" \
     --password-file "$1"/.pass \
-    diff $(getSnapshotsHash "$1") |\
-    awk '($1=="+")' |\
-    cut -f 2- -d ' ' |\
+    diff $SNAPSHOTS |\
     tree --fromfile .  |\
     tee -a $LOG_FILE
 }
@@ -63,6 +63,7 @@ fi
 showMessage "" "-------------------->8--------------------"
 showMessage "Start: " "$(date '+%Y-%m-%d %H:%M:%S')"
 showMessage "Repository: " "$1"
+showMessage "Snapshots: " "\n$SNAPSHOTS"
 
 checkDirs "$1"
 diffSnapshots "$1"

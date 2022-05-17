@@ -4,6 +4,7 @@
 Зависимости:
 - [restic](https://restic.net/) - создание снапшотов
 - [rsync](https://rsync.samba.org/) - синхронизация директорий
+- [jq][https://stedolan.github.io/jq/] - парсинг json для diff
 
 Дополнительно:
 - [lnav](https://lnav.org/) - просмотр логов
@@ -50,6 +51,11 @@ bash ./go-restic.sh <repository_dir> <working_files_dir>
 Никто не мешает запускать скрипт несколько раз с различными целевыми директориями, например, на разных носителях.
 ```bash
 bash ./go-rsync.sh <repository_dir> <backup_dir>
+```
+
+## Просмотр разницы между предыдущим снапшотом и последним
+```bash
+bash ./go-restic-diff.sh <repository_dir>
 ```
 
 ## Логгирование
