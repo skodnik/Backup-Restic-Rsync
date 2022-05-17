@@ -2,8 +2,13 @@
 
 set -euo pipefail
 
+LOG_FILE="$1"/logs/$(date '+%Y-%m-%d').log
+
+touch $LOG_FILE
+
 function showMessage () {
     printf '\n%b' "$1\\e[01;38;05;214m$2\\033[0m\n"
+    echo -e "\n$1$2\n" >> $LOG_FILE
 }
 
 function checkDirs () {
@@ -27,7 +32,7 @@ function goSync () {
     --compress \
     --human-readable \
     --delete \
-    --stats "$1" "$2"
+    --stats "$1" "$2" | tee -a $LOG_FILE
 }
 
 showMessage "" "-------------------->8--------------------"

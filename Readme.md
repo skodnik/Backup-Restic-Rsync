@@ -17,13 +17,27 @@ restic init --repo <repository_dir>
 ```bash
 mkdir <repository_dir>/logs
 ```
-3. В директории репозитория следует создать файл `pass.txt` содержащий пароль (да, не самый безопасный подход, стоит сделать иначе) к репозиторию указанный на шаге 1:
+3. В директории репозитория следует создать файл `.pass` содержащий пароль (да, не самый безопасный подход, стоит сделать иначе) к репозиторию указанный на шаге 1:
 ```bash
-vim <repository_dir>/pass.txt
+vim <repository_dir>/.pass
 ```
-4. При необходимости можно определить перечень игнорируемых файлов при создании снапшота. Перечень файлов [определяется](https://restic.readthedocs.io/en/stable/040_backup.html?highlight=--exclude-file#excluding-files) в файле `resticignore.txt` в директории репозитория. Его обязательно необходимо создать, можно оставить пустым.
+4. В директории репозитория следует создать файл `.env` содержащий значения переменных для определения количества сохраняемых снапшотов согласно [условиям](https://restic.readthedocs.io/en/stable/060_forget.html#removing-snapshots-according-to-a-policy):
 ```bash
-vim <repository_dir>/resticignore.txt
+vim <repository_dir>/.env
+```
+Например, так (приведенные в примере переменные обязательны):
+```bash
+# Restic forget options
+KEEP_LAST=5
+KEEP_HOURLY=12
+KEEP_DAILY=28
+KEEP_WEEKLY=8
+KEEP_MONTHLY=12
+KEEP_YEARLY=4
+```
+5. При необходимости можно определить перечень игнорируемых файлов при создании снапшота. Перечень файлов [определяется](https://restic.readthedocs.io/en/stable/040_backup.html?highlight=--exclude-file#excluding-files) в файле `.resticignore` в директории репозитория. Его обязательно необходимо создать, можно оставить пустым.
+```bash
+vim <repository_dir>/.resticignore
 ```
 
 ## Создание снапшота
