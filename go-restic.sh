@@ -11,27 +11,32 @@ function showMessage () {
     echo -e "\n$1$2\n" >> $LOG_FILE
 }
 
+function showError () {
+    printf '\n%b' "$1\\e[1;31m$2\\033[0m\n"
+    echo -e "\n$1$2\n" >> $LOG_FILE
+}
+
 function checkDirs () {
     if [ ! -d "$1" ]; then
-        showMessage "" "Repository directory $1 doesn't exist"
+        showError "Doesn't exist repository directory: " "$1"
         showMessage "End: " "$(date '+%Y-%m-%d %H:%M:%S')"
         exit 1
     fi
 
     if [ ! -d "$2" ]; then
-        showMessage "" "Working dir $2 doesn't exist"
+        showError "Doesn't exist working directory: " "$2"
         showMessage "End: " "$(date '+%Y-%m-%d %H:%M:%S')"
         exit 1
     fi
 
     if [ ! -d "$1/logs" ]; then
-        showMessage "" "Logs dir doesn't exist"
+        showError "Doesn't exist logs directory: " "$1/logs"
         showMessage "End: " "$(date '+%Y-%m-%d %H:%M:%S')"
         exit 1
     fi
 
     if [ ! -f "$1/.pass" ]; then
-        showMessage "" "Password file doesn't exist"
+        showError "Doesn't exist password file: " "$1/.pass"
         showMessage "End: " "$(date '+%Y-%m-%d %H:%M:%S')"
         exit 1
     fi
@@ -102,10 +107,10 @@ function showStats () {
     latest | tee -a $LOG_FILE
 }
 
-if [ -f "$1"/.env ]; then
+if [ -f "$1/.env" ]; then
     export $(grep -v '^#' "$1"/.env | xargs)
 else
-    showMessage "" ".env file doesn't exist"
+    showError "Doesn't exist .env file: " "$1/.env"
     showMessage "End: " "$(date '+%Y-%m-%d %H:%M:%S')"
     exit 1
 fi
